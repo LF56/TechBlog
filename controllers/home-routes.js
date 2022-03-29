@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Post, User, Comment} = require('../models');
+const { Post, User, Comment } = require('../models');
 
 // get all posts for homepage
 router.get('/', (req, res) => {
@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
       'title',
       'content',
       'user_id',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
     ],
     include: [
       {
@@ -30,7 +29,7 @@ router.get('/', (req, res) => {
   })
     .then(dbPostData => {
       const posts = dbPostData.map(post => post.get({ plain: true }));
-
+      console.log(posts)
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn
@@ -53,22 +52,21 @@ router.get('/post/:id', (req, res) => {
       'title',
       'content',
       'user_id',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)')]
     ],
-    include: [
-      {
-        model: Comment,
-        attributes: ['id', 'comment_text', 'user_id', 'post_id'],
-        include: {
-          model: User,
-          attributes: ['username']
-        }
-      },
-      {
-        model: User,
-        attributes: ['username']
-      }
-    ]
+    // include: [
+    //   {
+    //     model: Comment,
+    //     attributes: ['id', 'comment_text', 'user_id', 'post_id'],
+    //     include: {
+    //       model: User,
+    //       attributes: ['username']
+    //     }
+    //   },
+    //   {
+    //     model: User,
+    //     attributes: ['username']
+    //   }
+    // ]
   })
     .then(dbPostData => {
       if (!dbPostData) {
