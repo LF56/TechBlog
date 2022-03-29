@@ -10,7 +10,7 @@ const commentInfo = [
       {
         comment_text: 'PlaceHolderText',
         user_id: 3,
-        post_id: 8
+        post_id: 4
       }
 ]; 
 

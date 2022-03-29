@@ -53,6 +53,6 @@ const userInfo = [
         password: 'password000'
     },
 ];
-const seedUsers = () => User.bulkCreate(userdata, {individualHooks: true});
+const seedUsers = () => User.bulkCreate(userInfo, {individualHooks: true});
 
 module.exports = seedUsers;
