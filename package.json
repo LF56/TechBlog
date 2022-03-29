@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "node server.js",
-    "develop": "nodemon server.js"
+    "develop": "nodemon server.js",
+    "seed": "node seeds/index.js"
   },
   "name": "techblog",
   "description": "Week 14 Challenge from UCF Fullstack Coding Bootcamp",
