@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
       'title',
       'content',
       'user_id',
+      'created_at'
     ],
     include: [
       {
@@ -45,6 +46,7 @@ router.get('/:id', (req, res) => {
         'title',
         'content',
         'user_id',
+        'created_at'
     ],
     include: [
       {
@@ -78,18 +80,9 @@ router.post('/', withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
     content: req.body.content,
-    user_id: req.session.user_id
+    user_id: req.session.user_id,
   })
     .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.put('/upvote', withAuth, (req, res) => {
-  Post.upvote({ ...req.body, user_id: req.session.user_id })
-    .then(updatedVoteData => res.json(updatedVoteData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);

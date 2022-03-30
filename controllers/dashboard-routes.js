@@ -16,12 +16,12 @@ router.get('/', withAuth, (req, res) => {
         'title',
         'content',
         'user_id',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        'created_at'
     ],
     include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'user_id', 'post_id'],
+          attributes: ['id', 'comment_text', 'user_id', 'post_id', 'created_at'],
           include: {
             model: User,
             attributes: ['username']
@@ -50,12 +50,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
         'title',
         'content',
         'user_id',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        'created_at'
     ],
     include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'user_id', 'post_id'],
+          attributes: ['id', 'comment_text', 'user_id', 'post_id','created_at'],
           include: {
             model: User,
             attributes: ['username']
